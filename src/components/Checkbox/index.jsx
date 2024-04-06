@@ -2,10 +2,10 @@ import styles from './Checkbox.module.scss'
 
 export function Checkbox() {
     return (
-        <label class={styles.container_label}>
+        <label className={styles.container_label}  >
             Adults
-            <input type="checkbox"  />
-            <span class={styles.checkmark}></span>
+            <input type="checkbox" name='checkbox' />
+            <span className={styles.checkmark}></span>
 
         </label>
     )
