@@ -1,19 +1,25 @@
-.container{
+.container {
     width: 100%;
-    max-width: 75.8rem; 
+    max-width: 75.8rem;
     margin: 0 auto;
-    padding:  0 1.5rem;
-    .filters{
+    padding: 0 1.5rem;
+
+    .filters {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        &__item{
+        max-width: 50rem;
+        width: 100%;
+        margin: 0 auto 5.3rem;
+
+        &__item {
             display: flex;
             align-items: center;
             gap: 5px;
-            p{
+
+            p {
                 font-size: 1.6rem;
-                color: #000; 
+                color: #000;
                 line-height: 0.16rem;
             }
         }
