@@ -1,0 +1,43 @@
+.search {
+    max-width: 50rem;
+    width: 100%;
+    display: flex; 
+    gap: 3.2rem;
+    margin: 3.3rem auto;
+    align-items: flex-start;
+
+    &__input {
+        width: 100%;
+        input {
+            transition: all .3s; 
+            width: 100%;
+            padding: 1.5rem;
+            font-size: 1.6rem;
+            line-height: 0.14rem;
+            border-radius: 0.8rem;
+            background-color: #EBEBEB;
+            color: #333333;
+
+            &::placeholder {
+                color: #AAAAAA;
+            }
+
+            &:focus{
+                border: 1px solid #0099FF;
+            }
+        }
+    }
+    &__button{
+        transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);;
+        background-color: #0099FF;
+        color: #FFF;
+        padding: 1rem;
+        font-size: 1.6rem;
+        border-radius: 0.8rem;
+        &:hover{
+            scale: 1.1;
+            background-color:#FFF;
+            color:  #0099FF;
+        }
+    }
+}
