@@ -1,0 +1,13 @@
+.select {
+    color:  #999999;
+    padding: 1rem;
+    border-radius: 0.8rem;
+    transition: all .3s;
+    
+    &__option {
+        color: #444444; 
+    }
+    &:hover{
+        border: 1px solid #0099FF;
+    }
+}
