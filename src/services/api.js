@@ -1,5 +1,5 @@
-import { axios } from 'axios';
+import  axios  from 'axios';
 
-export const api = create({
-    baseURL: 'https://randomuser.me/api/'
+export const api = axios.create({
+    baseURL: 'https://randomuser.me/api'
 })
