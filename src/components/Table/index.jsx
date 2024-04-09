@@ -1,6 +1,7 @@
 import { Thead } from "./Thead"
 import { Row } from "./Row"
 import styles from './Table.module.scss'
+import { Link } from 'react-router-dom'
 
 export function Table({ dataPeople, modeList }) {
     return (
@@ -10,7 +11,13 @@ export function Table({ dataPeople, modeList }) {
                     <tbody className={`${styles.grid} ${styles['grid--four-columns']}`} >
                         {dataPeople &&
                             dataPeople.map(people => (
-                                <Row data={people} key={people.login.uuid} mode={modeList}/>
+                                <Link to='/teste'>
+                                    <Row
+                                        data={people}
+                                        key={people.login.uuid}
+                                        mode={modeList}
+                                    />
+                                </Link>
                             ))
                         }
                     </tbody>
@@ -21,7 +28,9 @@ export function Table({ dataPeople, modeList }) {
                     <tbody>
                         {dataPeople &&
                             dataPeople.map(people => (
-                                <Row data={people} key={people.login.uuid} />
+                                <Link to='/teste'>
+                                    <Row data={people} key={people.login.uuid} />
+                                </Link>
                             ))
                         }
                     </tbody>

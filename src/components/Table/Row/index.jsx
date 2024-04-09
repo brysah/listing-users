@@ -8,7 +8,7 @@ export function Row({ data, mode }) {
           <>
             {
               data && (
-                <tr className={styles.grid}>
+                <tr className={`${styles.grid} ${styles.row}`}>
                   <td className={`${styles.table__cell} ${styles['table__cell--padding-list']}  ${styles.table__text} 
                    ${styles['table__text--big']}`}  >
                     <img
@@ -25,7 +25,7 @@ export function Row({ data, mode }) {
           <>
             {
               data && (
-                <tr>
+                <tr className={styles.row}>
                   <td className={`${styles.table__cell} ${styles.table__text}`}  >
                     <img
                       src={data.picture.medium}
