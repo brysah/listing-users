@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styles from '../Table.module.scss'
 
 export function Row({ data, mode }) {
@@ -7,7 +8,7 @@ export function Row({ data, mode }) {
         mode ? (
           <>
             {
-              data && (
+              data && ( 
                 <tr className={`${styles.grid} ${styles.row}`}>
                   <td className={`${styles.table__cell} ${styles['table__cell--padding-list']}  ${styles.table__text} 
                    ${styles['table__text--big']}`}  >
@@ -17,7 +18,7 @@ export function Row({ data, mode }) {
                       className={`${styles.table__cell__image} ${styles['table__cell__image--large']} `} />
                   </td>
                   <td className={`${styles.table__cell} ${styles.table__text} ${styles['table__text--big']}`}  >{data.name.first}</td> 
-                </tr>
+                </tr> 
               )
             }
           </>

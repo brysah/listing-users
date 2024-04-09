@@ -1,9 +1,9 @@
 import { Thead } from "./Thead"
 import { Row } from "./Row"
-import styles from './Table.module.scss'
-import { Link } from 'react-router-dom'
+import styles from './Table.module.scss' 
 
 export function Table({ dataPeople, modeList }) {
+    const navigate = useNavigate();
     return (
         <table className={styles.table}>
             {modeList ? (
@@ -11,13 +11,11 @@ export function Table({ dataPeople, modeList }) {
                     <tbody className={`${styles.grid} ${styles['grid--four-columns']}`} >
                         {dataPeople &&
                             dataPeople.map(people => (
-                                <Link to='/teste'>
-                                    <Row
-                                        data={people}
-                                        key={people.login.uuid}
-                                        mode={modeList}
-                                    />
-                                </Link>
+                                <Row
+                                    data={people}
+                                    key={people.login.uuid}
+                                    mode={modeList} 
+                                />
                             ))
                         }
                     </tbody>
@@ -28,9 +26,7 @@ export function Table({ dataPeople, modeList }) {
                     <tbody>
                         {dataPeople &&
                             dataPeople.map(people => (
-                                <Link to='/teste'>
-                                    <Row data={people} key={people.login.uuid} />
-                                </Link>
+                                <Row data={people} key={people.login.uuid} />
                             ))
                         }
                     </tbody>
