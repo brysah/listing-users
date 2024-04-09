@@ -1,5 +1,10 @@
 import  axios  from 'axios';
 
 export const api = axios.create({
-    baseURL: 'https://randomuser.me/api'
+    baseURL: 'https://randomuser.me/api',
+    params:{
+        'info':{
+            'version': '1.4'
+        }
+    }
 })
