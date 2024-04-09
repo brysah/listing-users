@@ -35,7 +35,10 @@ export function Home() {
     const genders = ['female', 'male'];
     const [dataSet, setDataSet] = useState([]);
     const [people, setPeople] = useState([]);
-    const [user, setUser] = useState();
+    const [selectedGender, setSelectedGender] = useState('all');
+    const [selectedCountry, setSelectedCountry] = useState('all');
+    const [adults, setAdults] = useState(false);
+    const [user, setUser] = useState('');
 
     useEffect(() => {
         api.get(('/'), {
@@ -44,78 +47,56 @@ export function Home() {
                 'Content-type': 'application/json'
             },
             params: {
-                results: 10,
+                results: 100,
                 seed: 'seed'
             }
-        }).then(
-            ({ data }) => {
-                setPeople(data.results);
-                setDataSet(data.results);
-            })
-            .catch(error => console.error(error))
-
+        }).then(({ data }) => { 
+            setPeople(data.results);
+            setDataSet(data.results);
+        }).catch(error => console.error(error));
     }, []);
 
     function handleChange(e) {
-        setUser(e.target.value)
+        setUser(e.target.value);
     }
 
     function handleSearch() {
-        const filtered = filterByName(dataSet, user)
-        setPeople(filtered)
+        const filtered = filterByName(dataSet, user);
+        setPeople(filtered);
+        setUser('');
     }
 
     function handleSelectGender(e) {
-        const selectCountry = document.querySelector('select[name="country"]');
-        if (e.target.value === 'all') {
-            if (selectCountry.value !== 'all') {  
-                const filtered = filterByNat(dataSet, selectCountry.value); 
-                setPeople(filtered)
-                
-            }
-            else {
-                setPeople(dataSet);
-            }
-
-        }
-        else {
-            if (selectCountry.value !== 'all') { 
-                const filteredNat = filterByNat(dataSet, selectCountry.value);
-                const filteredAll = filterByGender(filteredNat, e.target.value);
-                setPeople(filteredAll)
-            }
-            else {
-                const filtered = filterByGender(dataSet, e.target.value);
-                setPeople(filtered);
-            }
-        }
+        const value = e.target.value;
+        setSelectedGender(value);
+        updatePeople(value, selectedCountry,adults);
     }
 
-    function handleSelectNat(e) {
-        const selectGender = document.querySelector('select[name="gender"]');
-        if (e.target.value === 'all') {
-            if (selectGender.value !== 'all') { 
+    function handleSelectCountry(e) {
+        const value = e.target.value;
+        setSelectedCountry(value);
+        updatePeople(selectedGender, value ,adults);
+    }
 
-                const newArr = people;
-                const filteredGender = filterByGender(newArr, selectGender.value);
-                const filteredAll = filterByNat(filteredGender, e.target.value);
-                setPeople(filteredAll)
-            }
-            else {
-                setPeople(dataSet);
-            }
+    function handleCheckbox(e) {
+        const value = e.target.checked;
+        setAdults(value);
+        updatePeople(selectedGender, selectedCountry, value); 
+    }
+
+    function updatePeople(gender, country,adults) {
+        let filtered = dataSet;
+        if (gender !== 'all') {
+            filtered = filterByGender(filtered, gender);
         }
-        else {
-            if (selectGender.value !== 'all') {
-                const newArr = people;
-                const filtered = filterByNat(newArr, e.target.value);
-                setPeople(filtered)
-            }
-            else {
-                const filtered = filterByNat(dataSet, e.target.value);
-                setPeople(filtered);
-            }
+        if (country !== 'all') {
+            filtered = filterByNat(filtered, country);
         }
+        if(adults !== false){
+            filtered = filterByAge(filtered, adults)
+        }
+
+        setPeople(filtered);
     }
 
     function filterByName(arr, name) {
@@ -123,20 +104,26 @@ export function Home() {
     }
 
     function filterByNat(arr, nat) {
-        return arr.filter(e => e.nat.localeCompare(nat) === 0)
+        return arr.filter(e => e.nat === nat);
     }
 
     function filterByGender(arr, gender) {
-        return arr.filter(e => e.gender.localeCompare(gender) === 0)
+        return arr.filter(e => e.gender === gender);
+    }
+
+    function filterByAge(arr,adult) { 
+        if(adult === true ) adult = 18;
+        else adult = 0;
+        return arr.filter(e => e.registered.age > adult)
     }
 
     return (
         <div className={styles.container}>
-            <Search handleChange={handleChange} handleOnClick={handleSearch} />
+            <Search handleChange={handleChange} handleOnClick={handleSearch} value={user} />
             <div className={styles.filters}>
-                <Select options={genders} handleSelect={handleSelectGender} name='gender' />
-                <Select options={countries} handleSelect={handleSelectNat} name='country' />
-                <Checkbox />
+                <Select options={genders} handleSelect={handleSelectGender} value={selectedGender} />
+                <Select options={countries} handleSelect={handleSelectCountry} value={selectedCountry} />
+                <Checkbox handleChange={handleCheckbox} />
                 <div className={styles.filters__item}>
                     <ToggleSwitch />
                     <p>List</p>
