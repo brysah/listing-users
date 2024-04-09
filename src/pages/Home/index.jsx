@@ -20,8 +20,7 @@ export function Home() {
                 results: 12
             }
         }).then(
-            ({ data }) => {
-                console.log(data.results);
+            ({ data }) => { 
                 setPeople(data.results)
             } )
             .catch(error=>console.error(error))

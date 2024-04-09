@@ -13,7 +13,7 @@ export function Table({dataPeople}) {
                     (
                         dataPeople.map(people=>
                             ( 
-                                <Row data={people} key={people.id.value}/>
+                                <Row data={people} key={people.login.uuid}/>
                             )
                         )
                     )
