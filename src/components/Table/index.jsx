@@ -2,23 +2,31 @@ import { Thead } from "./Thead"
 import { Row } from "./Row"
 import styles from './Table.module.scss'
 
-export function Table({dataPeople}) {
+export function Table({ dataPeople, modeList }) {
     return (
         <table className={styles.table}>
-            <Thead />
-            <tbody>
-                <Row/>
-                {
-                    dataPeople && 
-                    (
-                        dataPeople.map(people=>
-                            ( 
-                                <Row data={people} key={people.login.uuid}/>
-                            )
-                        )
-                    )
-                }
-            </tbody>
+            {modeList ? (
+                <>
+                    <tbody className={`${styles.grid} ${styles['grid--four-columns']}`} >
+                        {dataPeople &&
+                            dataPeople.map(people => (
+                                <Row data={people} key={people.login.uuid} mode={modeList}/>
+                            ))
+                        }
+                    </tbody>
+                </>
+            ) : (
+                <>
+                    <Thead />
+                    <tbody>
+                        {dataPeople &&
+                            dataPeople.map(people => (
+                                <Row data={people} key={people.login.uuid} />
+                            ))
+                        }
+                    </tbody>
+                </>
+            )}
         </table>
     )
 }

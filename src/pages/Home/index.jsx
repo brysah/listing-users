@@ -37,6 +37,7 @@ export function Home() {
     const [people, setPeople] = useState([]);
     const [selectedGender, setSelectedGender] = useState('all');
     const [selectedCountry, setSelectedCountry] = useState('all');
+    const [list,setList] = useState(true);
     const [adults, setAdults] = useState(false);
     const [user, setUser] = useState('');
 
@@ -83,6 +84,10 @@ export function Home() {
         setAdults(value);
         updatePeople(selectedGender, selectedCountry, value); 
     }
+    function handleToggle(e) {
+        const value = e.target.checked;
+        setList(!value); 
+    }
 
     function updatePeople(gender, country,adults) {
         let filtered = dataSet;
@@ -125,11 +130,11 @@ export function Home() {
                 <Select options={countries} handleSelect={handleSelectCountry} value={selectedCountry} />
                 <Checkbox handleChange={handleCheckbox} />
                 <div className={styles.filters__item}>
-                    <ToggleSwitch />
+                    <ToggleSwitch handleChange={handleToggle}/>
                     <p>List</p>
                 </div>
             </div>
-            <Table dataPeople={people} />
+            <Table dataPeople={people} modeList={list}/>
         </div>
     )
 }

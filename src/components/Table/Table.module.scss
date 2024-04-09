@@ -12,6 +12,13 @@
             object-fit: cover;
             border-radius: 50%;
             margin: 0 auto;
+            &--large{
+                width: 10rem;
+                height: auto;
+            }
+        }
+        &--padding-list{
+            padding: 2.7rem 1.2rem 0.8rem;
         }
     }
     &__head{
@@ -22,5 +29,14 @@
         line-height: 0.12rem;
         font-weight: 400;
         text-align: center;
+        &--big{
+            font-size: 2.4rem;
+        }
+    }
+    .grid{
+        display: grid;
+        &--four-columns{
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+        }
     }
 }
