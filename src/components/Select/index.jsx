@@ -1,8 +1,8 @@
 import styles from './Select.module.scss';
 
-export function Select({ options }) {
+export function Select({ options,handleSelect,name }) {
     return (
-        <select name="" id="" className={styles.select}>
+        <select name={name} id="" className={styles.select} onChange={handleSelect}>
             {
                 options &&
                 (

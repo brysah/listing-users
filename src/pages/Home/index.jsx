@@ -32,13 +32,10 @@ export function Home() {
         { code: 'US', name: 'United States' }
     ];
 
-    const genders = ['female','male'];
-    
+    const genders = ['female', 'male'];
+    const [dataSet, setDataSet] = useState([]);
     const [people, setPeople] = useState([]);
-    const [seed, setSeed] = useState();
-    const [user, setUser] = useState({
-        name: ''
-    })
+    const [user, setUser] = useState();
 
     useEffect(() => {
         api.get(('/'), {
@@ -47,49 +44,98 @@ export function Home() {
                 'Content-type': 'application/json'
             },
             params: {
-                results: 12
+                results: 10,
+                seed: 'seed'
             }
         }).then(
             ({ data }) => {
-                setPeople(data.results)
-                setSeed(data.info.seed)
+                setPeople(data.results);
+                setDataSet(data.results);
             })
             .catch(error => console.error(error))
 
     }, []);
 
     function handleChange(e) {
-        setUser({ ...user, name: e.target.value }) 
+        setUser(e.target.value)
     }
 
     function handleSearch() {
-        api.get(('/'), {
-            method: 'GET',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            params: {
-                seed: seed,
-                results: 10
-            }
-        }).then(
-            ({ data }) => {
-                const filtered = filterByName(data.results,user.name)
-                setPeople(filtered)
-            })
-            .catch(error => console.error(error))
+        const filtered = filterByName(dataSet, user)
+        setPeople(filtered)
     }
 
-    function filterByName(arr,name){
+    function handleSelectGender(e) {
+        const selectCountry = document.querySelector('select[name="country"]');
+        if (e.target.value === 'all') {
+            if (selectCountry.value !== 'all') {  
+                const filtered = filterByNat(dataSet, selectCountry.value); 
+                setPeople(filtered)
+                
+            }
+            else {
+                setPeople(dataSet);
+            }
+
+        }
+        else {
+            if (selectCountry.value !== 'all') { 
+                const filteredNat = filterByNat(dataSet, selectCountry.value);
+                const filteredAll = filterByGender(filteredNat, e.target.value);
+                setPeople(filteredAll)
+            }
+            else {
+                const filtered = filterByGender(dataSet, e.target.value);
+                setPeople(filtered);
+            }
+        }
+    }
+
+    function handleSelectNat(e) {
+        const selectGender = document.querySelector('select[name="gender"]');
+        if (e.target.value === 'all') {
+            if (selectGender.value !== 'all') { 
+
+                const newArr = people;
+                const filteredGender = filterByGender(newArr, selectGender.value);
+                const filteredAll = filterByNat(filteredGender, e.target.value);
+                setPeople(filteredAll)
+            }
+            else {
+                setPeople(dataSet);
+            }
+        }
+        else {
+            if (selectGender.value !== 'all') {
+                const newArr = people;
+                const filtered = filterByNat(newArr, e.target.value);
+                setPeople(filtered)
+            }
+            else {
+                const filtered = filterByNat(dataSet, e.target.value);
+                setPeople(filtered);
+            }
+        }
+    }
+
+    function filterByName(arr, name) {
         return arr.filter((e) => e.name.first.toLowerCase().includes(name.toLowerCase()))
+    }
+
+    function filterByNat(arr, nat) {
+        return arr.filter(e => e.nat.localeCompare(nat) === 0)
+    }
+
+    function filterByGender(arr, gender) {
+        return arr.filter(e => e.gender.localeCompare(gender) === 0)
     }
 
     return (
         <div className={styles.container}>
-            <Search handleOnChange={handleChange} handleOnClick={handleSearch} />
+            <Search handleChange={handleChange} handleOnClick={handleSearch} />
             <div className={styles.filters}>
-                <Select options={genders}/>
-                <Select options={countries}/>
+                <Select options={genders} handleSelect={handleSelectGender} name='gender' />
+                <Select options={countries} handleSelect={handleSelectNat} name='country' />
                 <Checkbox />
                 <div className={styles.filters__item}>
                     <ToggleSwitch />
