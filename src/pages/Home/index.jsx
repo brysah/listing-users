@@ -8,6 +8,32 @@ import { api } from '../../services/api'
 import { useState, useEffect } from 'react'
 
 export function Home() {
+    const countries = [
+        { code: 'AU', name: 'Australia' },
+        { code: 'BR', name: 'Brazil' },
+        { code: 'CA', name: 'Canada' },
+        { code: 'CH', name: 'Switzerland' },
+        { code: 'DE', name: 'Germany' },
+        { code: 'DK', name: 'Denmark' },
+        { code: 'ES', name: 'Spain' },
+        { code: 'FI', name: 'Finland' },
+        { code: 'FR', name: 'France' },
+        { code: 'GB', name: 'United Kingdom' },
+        { code: 'IE', name: 'Ireland' },
+        { code: 'IN', name: 'India' },
+        { code: 'IR', name: 'Iran' },
+        { code: 'MX', name: 'Mexico' },
+        { code: 'NL', name: 'Netherlands' },
+        { code: 'NO', name: 'Norway' },
+        { code: 'NZ', name: 'New Zealand' },
+        { code: 'RS', name: 'Serbia' },
+        { code: 'TR', name: 'Turkey' },
+        { code: 'UA', name: 'Ukraine' },
+        { code: 'US', name: 'United States' }
+    ];
+
+    const genders = ['female','male'];
+    
     const [people, setPeople] = useState([]);
     const [seed, setSeed] = useState();
     const [user, setUser] = useState({
@@ -33,8 +59,7 @@ export function Home() {
     }, []);
 
     function handleChange(e) {
-        setUser({ ...user, name: e.target.value })
-        console.log(user);
+        setUser({ ...user, name: e.target.value }) 
     }
 
     function handleSearch() {
@@ -63,8 +88,8 @@ export function Home() {
         <div className={styles.container}>
             <Search handleOnChange={handleChange} handleOnClick={handleSearch} />
             <div className={styles.filters}>
-                <Select />
-                <Select />
+                <Select options={genders}/>
+                <Select options={countries}/>
                 <Checkbox />
                 <div className={styles.filters__item}>
                     <ToggleSwitch />
