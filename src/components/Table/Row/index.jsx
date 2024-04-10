@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import styles from '../Table.module.scss'
 
 export function Row({ data, mode }) {
@@ -8,17 +8,23 @@ export function Row({ data, mode }) {
         mode ? (
           <>
             {
-              data && ( 
-                <tr className={`${styles.grid} ${styles.row}`}>
+              data && (
+                <tr className={`${styles.grid} ${styles.row}`} >
                   <td className={`${styles.table__cell} ${styles['table__cell--padding-list']}  ${styles.table__text} 
                    ${styles['table__text--big']}`}  >
-                    <img
-                      src={data.picture.large}
-                      alt="Imagem do usuário"
-                      className={`${styles.table__cell__image} ${styles['table__cell__image--large']} `} />
+                    <Link>
+                      <img
+                        src={data.picture.large}
+                        alt="Imagem do usuário"
+                        className={`${styles.table__cell__image} ${styles['table__cell__image--large']} `} />
+                    </Link>
                   </td>
-                  <td className={`${styles.table__cell} ${styles.table__text} ${styles['table__text--big']}`}  >{data.name.first}</td> 
-                </tr> 
+                  <td className={`${styles.table__cell} ${styles.table__text} ${styles['table__text--big']}`}  >
+                    <Link>
+                      {data.name.first}
+                    </Link>
+                  </td>
+                </tr>
               )
             }
           </>
@@ -28,15 +34,30 @@ export function Row({ data, mode }) {
               data && (
                 <tr className={styles.row}>
                   <td className={`${styles.table__cell} ${styles.table__text}`}  >
-                    <img
-                      src={data.picture.medium}
-                      alt="Imagem do usuário"
-                      className={styles.table__cell__image} />
+                    <Link>
+                      <img
+                        src={data.picture.medium}
+                        alt="Imagem do usuário"
+                        className={styles.table__cell__image} />
+                    </Link>
                   </td>
-                  <td className={`${styles.table__cell} ${styles.table__text}`}  >{data.name.first}</td>
-                  <td className={`${styles.table__cell} ${styles.table__text}`}  >{data.registered.age}</td>
-                  <td className={`${styles.table__cell} ${styles.table__text}`}  >{data.location.country}</td>
-                  <td className={`${styles.table__cell} ${styles.table__text}`}  >{data.gender}</td>
+                  <td className={`${styles.table__cell} ${styles.table__text}`}  >
+                    <Link>
+                      {data.name.first}</Link>
+                  </td>
+                  <td className={`${styles.table__cell} ${styles.table__text}`}  >
+                    <Link>
+                      {data.registered.age}
+                    </Link>
+                  </td>
+                  <td className={`${styles.table__cell} ${styles.table__text}`}  >
+                    <Link>
+                      {data.location.country}
+                    </Link> </td>
+                  <td className={`${styles.table__cell} ${styles.table__text}`}  >
+                    <Link>
+                      {data.gender}
+                    </Link> </td>
                 </tr>
               )
             }

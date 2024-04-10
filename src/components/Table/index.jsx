@@ -1,10 +1,9 @@
 import { Thead } from "./Thead"
 import { Row } from "./Row"
-import styles from './Table.module.scss' 
+import styles from './Table.module.scss'  
 
-export function Table({ dataPeople, modeList }) {
-    const navigate = useNavigate();
-    return (
+export function Table({ dataPeople, modeList }) { 
+     return (
         <table className={styles.table}>
             {modeList ? (
                 <>
@@ -14,7 +13,7 @@ export function Table({ dataPeople, modeList }) {
                                 <Row
                                     data={people}
                                     key={people.login.uuid}
-                                    mode={modeList} 
+                                    mode={modeList}  
                                 />
                             ))
                         }
