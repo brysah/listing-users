@@ -1,0 +1,44 @@
+.container {
+    height: 100dvh;
+    height: 100vh;
+
+    &__map {
+        background-color: black;
+        height: 50%;
+    }
+
+    &__content {
+        height: 50%;
+        position: relative;
+    }
+}
+
+.content {
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1.2rem; 
+        transform: translateY(-50%);
+    }
+    
+    &__text{
+        line-height: 1.2;
+        text-align: center;
+        &--big{
+            font-size: 2.4rem;
+        }
+        &--medium{
+            font-size: 1.6rem;
+        }
+    }
+}
+
+.wrapper {
+    &__image {
+        width: 11.8rem;
+        height: auto;
+        border-radius: 50%;
+    }
+}

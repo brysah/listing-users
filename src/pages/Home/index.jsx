@@ -54,6 +54,7 @@ export function Home() {
         }).then(({ data }) => { 
             setPeople(data.results);
             setDataSet(data.results);
+            localStorage.setItem('dataset',JSON.stringify(data.results));
         }).catch(error => console.error(error));
     }, []);
 

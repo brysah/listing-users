@@ -14,6 +14,7 @@ export function Table({ dataPeople, modeList }) {
                                     data={people}
                                     key={people.login.uuid}
                                     mode={modeList}  
+                                    id={people.login.uuid} 
                                 />
                             ))
                         }
