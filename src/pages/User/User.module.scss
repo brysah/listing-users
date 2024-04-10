@@ -1,7 +1,7 @@
 .container {
     height: 100dvh;
     height: 100vh;
-
+    position: relative;
     &__map {
         background-color: black;
         height: 50%;
@@ -10,6 +10,21 @@
     &__content {
         height: 50%;
         position: relative;
+    }
+    &__button{
+        background-color: #0099FF;
+        color: #FFFFFF;
+        padding: 1rem;
+        border-radius: 0.8rem;
+        font-size: 1.6rem;
+        position: absolute;
+        top: 8.5rem;
+        left: 2.5rem;
+        &:hover{
+            color: #0099FF;
+            background-color: #FFFFFF;
+            transform: scale(1.1);
+        }
     }
 }
 
@@ -42,3 +57,4 @@
         border-radius: 50%;
     }
 }
+ 
