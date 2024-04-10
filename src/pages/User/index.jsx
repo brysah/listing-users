@@ -45,8 +45,7 @@ export function User() {
                                 </p>
                             </div>
                             <p className={`${styles.content__text} ${styles['content__text--medium']}`}>
-                                {user.name.first}
-                                Lives in {user.location.city}, {user.location.state}
+                                {user.name.first} Lives in {user.location.city}, {user.location.state}
                             </p>
                         </div>
                     </>
