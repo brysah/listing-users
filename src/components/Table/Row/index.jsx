@@ -20,7 +20,7 @@ export function Row({ data, mode,id }) {
                     </Link>
                   </td>
                   <td className={`${styles.table__cell} ${styles.table__text} ${styles['table__text--big']}`}  >
-                    <Link>
+                    <Link to={`/user/${id}`}>
                       {data.name.first}
                     </Link>
                   </td>
@@ -34,7 +34,7 @@ export function Row({ data, mode,id }) {
               data && (
                 <tr className={styles.row}>
                   <td className={`${styles.table__cell} ${styles.table__text}`}  >
-                    <Link>
+                    <Link to={`/user/${id}`}>
                       <img
                         src={data.picture.medium}
                         alt="Imagem do usuário"
@@ -42,20 +42,20 @@ export function Row({ data, mode,id }) {
                     </Link>
                   </td>
                   <td className={`${styles.table__cell} ${styles.table__text}`}  >
-                    <Link>
+                    <Link to={`/user/${id}`}>
                       {data.name.first}</Link>
                   </td>
                   <td className={`${styles.table__cell} ${styles.table__text}`}  >
-                    <Link>
+                    <Link to={`/user/${id}`}>
                       {data.registered.age}
                     </Link>
                   </td>
                   <td className={`${styles.table__cell} ${styles.table__text}`}  >
-                    <Link>
+                    <Link to={`/user/${id}`}>
                       {data.location.country}
                     </Link> </td>
                   <td className={`${styles.table__cell} ${styles.table__text}`}  >
-                    <Link>
+                    <Link to={`/user/${id}`}>
                       {data.gender}
                     </Link> </td>
                 </tr>

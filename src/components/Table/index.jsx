@@ -26,7 +26,11 @@ export function Table({ dataPeople, modeList }) {
                     <tbody>
                         {dataPeople &&
                             dataPeople.map(people => (
-                                <Row data={people} key={people.login.uuid} />
+                                <Row 
+                                data={people} 
+                                key={people.login.uuid} 
+                                id={people.login.uuid} 
+                                />
                             ))
                         }
                     </tbody>
