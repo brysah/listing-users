@@ -28,8 +28,7 @@ Welcome to my React project! Here, you can search and list people from an extern
 
 ## How to Run Locally 🏃‍♂️ 
 
-1.  Clone the repository to your local machine.
-2.  Navigate to the project directory  `cd listing-users`.
+1.  Clone the repository to your local machine. 
 3.  Install dependencies by running  `npm install`.
 4.  Start the development server with  `npm run dev`.
 5.  Access the application in your web browser .
