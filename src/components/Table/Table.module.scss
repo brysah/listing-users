@@ -65,4 +65,15 @@
             }
         }
     }
+
+    @media (max-width:768px){
+        .grid{
+            &--four-columns{
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        &__cell{
+            padding: 0 0 3rem 0;
+        }
+    }
 }

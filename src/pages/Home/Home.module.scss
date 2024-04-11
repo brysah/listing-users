@@ -24,10 +24,18 @@
             }
         }
     }
-    
+
     &__text {
-        font-size: 1.8rem; 
+        font-size: 1.8rem;
         line-height: 0.16rem;
         text-align: center;
+    }
+
+    @media (max-width:768px) {
+        .filters {
+            flex-wrap: wrap;
+            gap: 3rem;
+            justify-content: center;
+        }
     }
 }
