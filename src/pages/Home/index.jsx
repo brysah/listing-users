@@ -6,6 +6,7 @@ import { ToggleSwitch } from '../../components/ToggleSwitch'
 import { Table } from '../../components/Table'
 import { api } from '../../services/api'
 import { useState, useEffect } from 'react'
+import { Loading } from '../../components/Loading'
 
 export function Home() {
     const countries = [
@@ -37,25 +38,28 @@ export function Home() {
     const [people, setPeople] = useState([]);
     const [selectedGender, setSelectedGender] = useState('all');
     const [selectedCountry, setSelectedCountry] = useState('all');
-    const [list,setList] = useState(true);
+    const [list, setList] = useState(true);
     const [adults, setAdults] = useState(false);
     const [user, setUser] = useState('');
+    const [message, setMessage] = useState('');
 
     useEffect(() => {
-        api.get(('/'), {
-            method: 'GET',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            params: {
-                results: 100,
-                seed: 'seed'
-            }
-        }).then(({ data }) => { 
-            setPeople(data.results);
-            setDataSet(data.results);
-            localStorage.setItem('dataset',JSON.stringify(data.results));
-        }).catch(error => console.error(error));
+        setTimeout(() => {
+            api.get(('/'), {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                params: {
+                    results: 100,
+                    seed: 'seed'
+                }
+            }).then(({ data }) => {
+                setPeople(data.results);
+                setDataSet(data.results);
+                localStorage.setItem('dataset', JSON.stringify(data.results));
+            }).catch(error => console.error(error));
+        }, 300)
     }, []);
 
     function handleChange(e) {
@@ -64,33 +68,39 @@ export function Home() {
 
     function handleSearch() {
         const filtered = filterByName(dataSet, user);
-        setPeople(filtered);
+        if (filtered.length == 0) {
+            setMessage('Nenhum usuário encontrado')
+            setPeople('');
+        } else {
+            setMessage('')
+            setPeople(filtered);
+        }
         setUser('');
     }
 
     function handleSelectGender(e) {
         const value = e.target.value;
         setSelectedGender(value);
-        updatePeople(value, selectedCountry,adults);
+        updatePeople(value, selectedCountry, adults);
     }
 
     function handleSelectCountry(e) {
         const value = e.target.value;
         setSelectedCountry(value);
-        updatePeople(selectedGender, value ,adults);
+        updatePeople(selectedGender, value, adults);
     }
 
     function handleCheckbox(e) {
         const value = e.target.checked;
         setAdults(value);
-        updatePeople(selectedGender, selectedCountry, value); 
+        updatePeople(selectedGender, selectedCountry, value);
     }
     function handleToggle(e) {
         const value = e.target.checked;
-        setList(!value); 
+        setList(!value);
     }
 
-    function updatePeople(gender, country,adults) {
+    function updatePeople(gender, country, adults) {
         let filtered = dataSet;
         if (gender !== 'all') {
             filtered = filterByGender(filtered, gender);
@@ -98,11 +108,18 @@ export function Home() {
         if (country !== 'all') {
             filtered = filterByNat(filtered, country);
         }
-        if(adults !== false){
+        if (adults !== false) {
             filtered = filterByAge(filtered, adults)
         }
 
-        setPeople(filtered);
+        if (filtered.length == 0) {
+            setMessage('Nenhum usuário encontrado')
+            setPeople('');
+        } else {
+            setMessage('')
+            setPeople(filtered);
+        }
+        
     }
 
     function filterByName(arr, name) {
@@ -117,8 +134,8 @@ export function Home() {
         return arr.filter(e => e.gender === gender);
     }
 
-    function filterByAge(arr,adult) { 
-        if(adult === true ) adult = 18;
+    function filterByAge(arr, adult) {
+        if (adult === true) adult = 18;
         else adult = 0;
         return arr.filter(e => e.registered.age > adult)
     }
@@ -131,11 +148,15 @@ export function Home() {
                 <Select options={countries} handleSelect={handleSelectCountry} value={selectedCountry} />
                 <Checkbox handleChange={handleCheckbox} />
                 <div className={styles.filters__item}>
-                    <ToggleSwitch handleChange={handleToggle}/>
+                    <ToggleSwitch handleChange={handleToggle} />
                     <p>List</p>
                 </div>
             </div>
-            <Table dataPeople={people} modeList={list}/>
+            {
+                people[0] ? ( <Table dataPeople={people} modeList={list} /> ) : 
+                ( message ? ( <p className={styles.container__text}>{message}</p>) : 
+                            ( <Loading />) )
+            }
         </div>
     )
 }
