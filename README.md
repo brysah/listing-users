@@ -23,8 +23,7 @@ Welcome to my React project! Here, you can search and list people from an extern
 ## To-Do and Areas for Improvement 🚀
 
 -   **Improve Design**: Let's refine the layout and user experience for a more pleasant and intuitive interface.
--   **Unit Testing**: Add unit tests to ensure code robustness and quality.
--   **Performance Optimization**: Analyze and optimize the performance of the application, especially regarding rendering large datasets and integrating with external APIs. 
+-   **Unit Testing**: Add unit tests to ensure code robustness and quality. 
 
 ## How to Run Locally 🏃‍♂️ 
 
